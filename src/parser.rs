@@ -62,7 +62,7 @@ impl Parser {
     ///
     /// To improve performance it peeks the next 1-3 tokens and calls the
     /// according node parser function depending on that.
-    fn node(&self, input: ParseStream) -> Result<Vec<Node>> {
+    pub fn node(&self, input: ParseStream) -> Result<Vec<Node>> {
         let mut node = if input.peek(Token![<]) {
             if input.peek2(Token![!]) {
                 if input.peek3(Ident) {
@@ -183,7 +183,7 @@ impl Parser {
     }
 
     /// Parse the given stream as [`NodeElement`].
-    fn element(&self, input: ParseStream) -> Result<Node> {
+    pub fn element(&self, input: ParseStream) -> Result<Node> {
         let fork = &input.fork();
 
         if self.tag_close(&input.fork()).is_ok() {
